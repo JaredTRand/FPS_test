@@ -98,6 +98,7 @@ func _physics_process(delta):
 	current_speed = Vector3.ZERO.distance_to(get_real_velocity())
 	$UserInterface/DebugPanel.add_property("Speed", snappedf(current_speed, 0.001), 1)
 	$UserInterface/DebugPanel.add_property("Target speed", speed, 2)
+	$UserInterface/DebugPanel.add_property("Projectiles", get_tree().get_nodes_in_group("projectile").size(), 5)
 	var cv : Vector3 = get_real_velocity()
 	var vd : Array[float] = [
 		snappedf(cv.x, 0.001),

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b70r61ybnowju"]
+[gd_scene load_steps=6 format=3 uid="uid://b70r61ybnowju"]
 
 [sub_resource type="GDScript" id="GDScript_k5vmi"]
 script/source = "extends Node3D
@@ -9,26 +9,25 @@ script/source = "extends Node3D
 @onready var bolt := preload(\"res://weapons/scenes/arrow.tscn\")
 
 var can_shoot:bool = true
-var loaded:bool = true
+var loaded:bool = false
+var loaded_bolt
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	load_bolt()
+	pass
+	#load_bolt()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(dewlta):
 	if Input.is_action_pressed(\"main_action\"):
 		shoot()
 
 func shoot():
 	#timer.start()
 	if loaded and can_shoot:
-		var x = bolt.instantiate()
-		muzzle.add_child(x)
-		#muzzle.remove_child(x)
-		#x.shoot()
-		#can_shoot = false
+		loaded_bolt.shoot()
+		can_shoot = false
 		
 
 
@@ -42,8 +41,8 @@ func _on_fly_timer_timeout():
 	can_shoot = false
 
 func load_bolt():
-	#loaded_bolt = bolt.instantiate()
-	#muzzle.add_child(loaded_bolt)
+	loaded_bolt = bolt.instantiate()
+	muzzle.add_child(loaded_bolt)
 	loaded = true
 "
 
@@ -85,6 +84,8 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_h2b74")
 
+[sub_resource type="BoxMesh" id="BoxMesh_fpypu"]
+
 [node name="Handcrossbow" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00299615, 0, 0.00318503)
 script = SubResource("GDScript_k5vmi")
@@ -101,7 +102,11 @@ mesh = SubResource("ArrayMesh_ac3oj")
 skeleton = NodePath("")
 
 [node name="Muzzle" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0145924, -0.133667)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0141128, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Muzzle"]
+transform = Transform3D(0.0105861, 0, 0, 0, 0.0105861, 0, 0, 0, 0.0105861, 0, 0, 0)
+mesh = SubResource("BoxMesh_fpypu")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="flyTimer" to="." method="_on_fly_timer_timeout"]
