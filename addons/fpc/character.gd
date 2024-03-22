@@ -54,6 +54,8 @@ extends CharacterBody3D
 @export var jump_animation : bool = true
 @export var reticle_enabled : bool = true
 
+@onready var interact_ray: RayCast3D =  $Head/Camera/interact
+@onready var interact_reticle = $UserInterface/Reticle
 # Member variables
 var speed : float = base_speed
 var current_speed : float = 0.0
@@ -88,12 +90,18 @@ func change_reticle(reticle):
 	if RETICLE:
 		RETICLE.queue_free()
 	
-	if reticle_enabled:
-		RETICLE = load(reticle).instantiate()
-		RETICLE.character = self
-		$UserInterface.add_child(RETICLE)
+	#if reticle_enabled:
+	RETICLE = load(reticle).instantiate()
+	RETICLE.character = self
+	$UserInterface.add_child(RETICLE)
+	#change_reticle_visibility(false)
 
-
+func change_reticle_visibility(make_visible):
+	if make_visible:
+		RETICLE.visible = true
+	else:
+		RETICLE.visible = false
+		
 func _physics_process(delta):
 	current_speed = Vector3.ZERO.distance_to(get_real_velocity())
 	$UserInterface/DebugPanel.add_property("Speed", snappedf(current_speed, 0.001), 1)
@@ -268,6 +276,8 @@ func headbob_animation(moving):
 				use_headbob_animation = "walk"
 			"sprinting":
 				use_headbob_animation = "sprint"
+			#"sliding":
+				#use_headbob_animation = "slide"
 		
 		var was_playing : bool = false
 		if HEADBOB_ANIMATION.current_animation == use_headbob_animation:
@@ -302,6 +312,12 @@ func _process(delta):
 	
 	HEAD.rotation.x = clamp(HEAD.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 	
+	var collider = interact_ray.get_collider()
+	if collider and collider.is_in_group("interactable") and collider.is_interactable:
+		RETICLE.update_text(collider.interact_type + " " + collider.interact_name)
+		change_reticle_visibility(true)
+	else:
+		change_reticle_visibility(false)
 	# Uncomment if you want full controller support
 	#var controller_view_rotation = Input.get_vector(LOOK_LEFT, LOOK_RIGHT, LOOK_UP, LOOK_DOWN)
 	#HEAD.rotation_degrees.y -= controller_view_rotation.x * 1.5
@@ -312,3 +328,9 @@ func _unhandled_input(event):
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		HEAD.rotation_degrees.y -= event.relative.x * mouse_sensitivity
 		HEAD.rotation_degrees.x -= event.relative.y * mouse_sensitivity
+	
+	if Input.is_action_just_pressed("interact"):
+		var collider = interact_ray.get_collider()
+		if collider and collider.is_in_group("interactable") and collider.is_interactable:
+			collider.interact()
+			
