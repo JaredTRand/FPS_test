@@ -81,3 +81,8 @@ interact={
 [layer_names]
 
 3d_physics/layer_2="projectiles"
+
+[physics]
+
+common/physics_ticks_per_second=144
+3d/physics_engine="JoltPhysics3D"

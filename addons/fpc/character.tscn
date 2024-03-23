@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cc1m2a1obsyn4"]
+[gd_scene load_steps=22 format=3 uid="uid://cc1m2a1obsyn4"]
 
 [ext_resource type="Script" path="res://addons/fpc/character.gd" id="1_0t4e8"]
 [ext_resource type="Script" path="res://addons/fpc/debug.gd" id="3_x1wcc"]
@@ -375,6 +375,14 @@ _data = {
 "land_right": SubResource("Animation_vsknp")
 }
 
+[sub_resource type="Animation" id="Animation_bu5md"]
+resource_name = "swing_fromright"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2o7ci"]
+_data = {
+"swing_fromright": SubResource("Animation_bu5md")
+}
+
 [sub_resource type="Theme" id="Theme_wdf0f"]
 MarginContainer/constants/margin_bottom = 10
 MarginContainer/constants/margin_left = 10
@@ -397,6 +405,7 @@ SPRINT = "sprint"
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
 mesh = SubResource("CapsuleMesh_jw1de")
 
 [node name="Collision" type="CollisionShape3D" parent="."]
@@ -411,26 +420,38 @@ libraries = {
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
+[node name="MeleeHitboxLoc" type="Node3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.581013)
+
+[node name="Left_hand" type="Node3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.21, -0.072, -0.536)
+
 [node name="Right_hand" type="Node3D" parent="Head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.21, -0.072, -0.536)
+transform = Transform3D(0.395941, 0.155198, 0.905066, -0.258464, 0.964602, -0.052336, -0.881151, -0.213205, 0.422039, 0.3, -0.152, -0.281)
 
 [node name="Camera" type="Camera3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 0.999391, -0.0348995, 0, 0.0348995, 0.999391, 0, 0, 0)
 
 [node name="interact" type="RayCast3D" parent="Head/Camera"]
 target_position = Vector3(0, 0, -3)
+hit_back_faces = false
 
 [node name="HeadbobAnimation" type="AnimationPlayer" parent="Head"]
 libraries = {
 "": SubResource("AnimationLibrary_o0unb")
 }
-blend_times = [&"RESET", &"RESET", 0.5, &"RESET", &"walk", 0.5, &"walk", &"RESET", 0.5]
+blend_times = [&"walk", &"RESET", 0.5, &"RESET", &"walk", 0.5, &"RESET", &"RESET", 0.5]
 
 [node name="JumpAnimation" type="AnimationPlayer" parent="Head"]
 libraries = {
 "": SubResource("AnimationLibrary_qeg5r")
 }
 speed_scale = 4.0
+
+[node name="SwingAnimation" type="AnimationPlayer" parent="Head"]
+libraries = {
+"": SubResource("AnimationLibrary_2o7ci")
+}
 
 [node name="UserInterface" type="Control" parent="."]
 layout_mode = 3

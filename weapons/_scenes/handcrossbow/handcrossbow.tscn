@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://b70r61ybnowju"]
+
+[ext_resource type="Script" path="res://weapons/_scenes/handcrossbow/handcrossbow.gd" id="1_dvou8"]
+[ext_resource type="PackedScene" uid="uid://by3uf0koqsfkj" path="res://weapons/_scenes/handcrossbow/hand_crossbow.blend" id="2_l8v1g"]
+
+[node name="Handcrossbow" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00299615, 0, 0.00318503)
+script = ExtResource("1_dvou8")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="flyTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="weapon_node" type="Node3D" parent="."]
+
+[node name="Muzzle" type="Node3D" parent="weapon_node"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0776076, -0.483886)
+
+[node name="hand_crossbow" parent="weapon_node" instance=ExtResource("2_l8v1g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0630152, -0.350219)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="flyTimer" to="." method="_on_fly_timer_timeout"]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://d3piy113g7lq5"]
+[gd_scene load_steps=11 format=3 uid="uid://d3piy113g7lq5"]
 
 [ext_resource type="PackedScene" uid="uid://c74obu4lmvtdc" path="res://Test_Level/shapes/box.tscn" id="1_tqepx"]
 [ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/fpc/character.tscn" id="2_ay8cq"]
 [ext_resource type="Material" uid="uid://baf2eax034bsm" path="res://Test_Level/shapes/TestLevel_material.tres" id="2_kvhqi"]
-[ext_resource type="PackedScene" uid="uid://n0m0p6xa1v01" path="res://weapons/scenes/handcrossbow/spawnable/spawnable_handcrossbow.tscn" id="3_k0d3y"]
-[ext_resource type="PackedScene" uid="uid://cafve2vpd74pi" path="res://weapons/scenes/test_enemy.tscn" id="4_ylpa8"]
+[ext_resource type="PackedScene" uid="uid://n0m0p6xa1v01" path="res://weapons/_scenes/handcrossbow/spawnable/spawnable_handcrossbow.tscn" id="3_k0d3y"]
+[ext_resource type="PackedScene" uid="uid://15wdhjhhohlm" path="res://weapons/_scenes/sword/spawnable_sword.tscn" id="4_0eb0b"]
+[ext_resource type="PackedScene" uid="uid://cafve2vpd74pi" path="res://weapons/_scenes/test_enemy.tscn" id="4_ylpa8"]
 [ext_resource type="PackedScene" uid="uid://baosaty7j6vpr" path="res://addons/SimpleDungeons/DungeonGenerator.tscn" id="6_hyoin"]
 [ext_resource type="PackedScene" uid="uid://b2c2jvx5vsfc0" path="res://addons/SimpleDungeons/SampleDungeonKitWithModels.tscn" id="7_25ux8"]
 
@@ -47,8 +48,11 @@ transform = Transform3D(5.31762, -2.48901, 0.698769, 0, 4.55837, 3.24583, -1.940
 
 [node name="weapons" type="Node3D" parent="."]
 
-[node name="spawnable_handcrossbow" parent="weapons" groups=["interactable"] instance=ExtResource("3_k0d3y")]
+[node name="spawnable_handcrossbow" parent="weapons" instance=ExtResource("3_k0d3y")]
 transform = Transform3D(0.172737, 0, 0.984968, 0, 1, 0, -0.984968, 0, 0.172737, 0, 1.11101, 3.22922)
+
+[node name="spawnable_sword" parent="weapons" instance=ExtResource("4_0eb0b")]
+transform = Transform3D(0.0195902, -0.997422, 0.0690326, 0.272298, 0.0717585, 0.959533, -0.962013, 0, 0.273002, -1.10275, 1.87592, 3.20695)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.624766, 0.780812, 0, -0.780812, 0.624766, 0, 4.91675, 0)
@@ -85,3 +89,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.6249, 0, -14)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -27.3456, -83.8971)
 dungeon_kit_scene = ExtResource("7_25ux8")
 generate_seed = 2005
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.314467, -0.308253, 0.897825, 0.101897, 0.951304, 0.290924, -0.943784, 0, 0.330564, 0, 3.57135, 0)
