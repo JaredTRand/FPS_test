@@ -1,6 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://dvhwhqsxktbd2"]
+[gd_scene load_steps=10 format=3 uid="uid://dvhwhqsxktbd2"]
 
 [ext_resource type="Script" path="res://weapons/_scenes/sword/sword.gd" id="1_qm8nx"]
+[ext_resource type="Script" path="res://weapons/weapon_stats.gd" id="2_qt73d"]
+
+[sub_resource type="Resource" id="Resource_gjkdf"]
+script = ExtResource("2_qt73d")
+weapon_class = 0
+weapon_type = 0
+weight = 10.0
+damage = 0.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n6msf"]
 size = Vector3(1, 0.204, 0.7)
@@ -103,6 +111,7 @@ shadow_mesh = SubResource("ArrayMesh_jr5si")
 
 [node name="Sword" type="Node3D"]
 script = ExtResource("1_qm8nx")
+weapon_stats = SubResource("Resource_gjkdf")
 
 [node name="hurtbox" type="Area3D" parent="."]
 

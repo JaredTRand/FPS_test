@@ -1,6 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://cc1m2a1obsyn4"]
+[gd_scene load_steps=24 format=3 uid="uid://cc1m2a1obsyn4"]
 
 [ext_resource type="Script" path="res://addons/fpc/character.gd" id="1_0t4e8"]
+[ext_resource type="PackedScene" uid="uid://dvhwhqsxktbd2" path="res://weapons/_scenes/sword/sword.tscn" id="2_xhrrd"]
 [ext_resource type="Script" path="res://addons/fpc/debug.gd" id="3_x1wcc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kp17n"]
@@ -377,9 +378,72 @@ _data = {
 
 [sub_resource type="Animation" id="Animation_bu5md"]
 resource_name = "swing_fromright"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Right_hand:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6, 1),
+"transitions": PackedFloat32Array(1.62451, 1.62451, 1, 1),
+"update": 0,
+"values": [Vector3(0.3, -0.152, -0.281), Vector3(0.495, -0.152, -0.281), Vector3(0, -0.152, -0.281), Vector3(-0.45, -0.152, -0.281)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Right_hand:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6, 1),
+"transitions": PackedFloat32Array(1.62451, 1.62451, 1, 1),
+"update": 0,
+"values": [Vector3(0.0523599, 1.13446, -0.261799), Vector3(1.35263, 1.13446, -0.261799), Vector3(1.35263, 2.83616, -0.261799), Vector3(1.35263, 4.29351, -0.261799)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Right_hand")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_pir87"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Right_hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.3, -0.152, -0.281)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Right_hand:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.0523599, 1.13446, -0.261799)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2o7ci"]
 _data = {
+"RESET": SubResource("Animation_pir87"),
 "swing_fromright": SubResource("Animation_bu5md")
 }
 
@@ -427,7 +491,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.581013)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.21, -0.072, -0.536)
 
 [node name="Right_hand" type="Node3D" parent="Head"]
-transform = Transform3D(0.395941, 0.155198, 0.905066, -0.258464, 0.964602, -0.052336, -0.881151, -0.213205, 0.422039, 0.3, -0.152, -0.281)
+transform = Transform3D(0.395941, 0.155198, 0.905066, -0.258464, 0.964602, -0.052336, -0.88115, -0.213205, 0.422039, 0.3, -0.152, -0.281)
+
+[node name="Sword" parent="Head/Right_hand" instance=ExtResource("2_xhrrd")]
 
 [node name="Camera" type="Camera3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 0.999391, -0.0348995, 0, 0.0348995, 0.999391, 0, 0, 0)
@@ -448,7 +514,7 @@ libraries = {
 }
 speed_scale = 4.0
 
-[node name="SwingAnimation" type="AnimationPlayer" parent="Head"]
+[node name="R_SwingAnimation" type="AnimationPlayer" parent="Head"]
 libraries = {
 "": SubResource("AnimationLibrary_2o7ci")
 }
@@ -481,3 +547,5 @@ layout_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("SphereShape3D_k4wwl")
 target_position = Vector3(0, 0.5, 0)
+
+[connection signal="halfway_swing" from="." to="." method="_on_halfway_swing"]

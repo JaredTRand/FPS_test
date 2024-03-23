@@ -69,6 +69,13 @@ var RETICLE : Control
 # Get the gravity from the project settings to be synced with RigidBody nodes
 var gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity") # Don't set this as a const, see the gravity section in _physics_process
 
+signal halfway_swing
+
+func halfway_thru_swing():
+	emit_signal("halfway_swing")
+
+func _on_halfway_swing():
+	print_debug("halfway")
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
