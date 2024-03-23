@@ -84,6 +84,7 @@ func _ready():
 	HEADBOB_ANIMATION.play("RESET")
 	JUMP_ANIMATION.play("RESET")
 	CROUCH_ANIMATION.play("RESET")
+	
 
 
 func change_reticle(reticle):
