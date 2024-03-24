@@ -116,7 +116,7 @@ weapon_stats = SubResource("Resource_gjkdf")
 [node name="hurtbox" type="Area3D" parent="."]
 
 [node name="hurtbox_collision" type="CollisionShape3D" parent="hurtbox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.104622, -0.361461)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00284613, -0.361461)
 shape = SubResource("BoxShape3D_n6msf")
 
 [node name="weapon_node" type="Node3D" parent="."]

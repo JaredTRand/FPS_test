@@ -62,12 +62,23 @@ light_energy = 3.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.201606, 0.281114, 0.660655)
 base_speed = 5.0
 sprint_speed = 8.0
-JUMP = "character_jump"
+initial_facing_direction = Vector3(0, 0, 0)
 LEFT = "character_left"
 RIGHT = "character_right"
 FORWARD = "character_forward"
 BACKWARD = "character_backward"
+PAUSE = "ui_cancel"
+jumping_enabled = true
+in_air_momentum = true
+motion_smoothing = true
+sprint_enabled = true
+crouch_enabled = true
+crouch_mode = 0
 sprint_mode = 1
+dynamic_fov = true
+continuous_jumping = true
+view_bobbing = true
+jump_animation = true
 reticle_enabled = false
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("4_ylpa8")]

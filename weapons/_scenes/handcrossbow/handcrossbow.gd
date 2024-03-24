@@ -4,7 +4,7 @@ extends Node3D
 @onready var timer = $Timer
 @onready var fly_timer = $flyTimer
 @onready var bolt := preload("res://weapons/_scenes/arrow.tscn")
-
+var player
 var can_shoot:bool = true
 var loaded:bool = true
 

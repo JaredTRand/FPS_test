@@ -10,12 +10,12 @@ extends RigidBody3D
 
 
 # Called when the node enters the scene tree for the first time.
-func interact():
+func interact(player):
 	print_debug("interact")
-	var right_hand = get_tree().get_nodes_in_group("Player")[0].find_child("Right_hand")
-	var left_hand = get_tree().get_nodes_in_group("Player")[0].find_child("Left_hand")
-	var head = get_tree().get_nodes_in_group("Player")[0].find_child("Head")
-	var hurtboxloc = get_tree().get_nodes_in_group("Player")[0].find_child("MeleeHitboxLoc")
+	var right_hand = player.find_child("Right_hand")
+	var left_hand = player.find_child("Left_hand")
+	var head = player.find_child("Head")
+	var hurtboxloc = player.find_child("MeleeHitboxLoc")
 	
 	if weapon:
 		var new_weapon = weapon.instantiate()
@@ -24,10 +24,11 @@ func interact():
 		
 		
 		head.add_child(new_weapon)
+		new_weapon.player = player
 		if hurtbox:
 			new_weapon.remove_child(hurtbox)
 			hurtboxloc.add_child(hurtbox)
-			#hurtbox.global_transform = hurtboxloc.global_transform
+			#the hurtbox follows the headbob. maybe need to fix this...
 		if weapon_node:
 			var orig_pos = new_weapon.global_rotation
 			

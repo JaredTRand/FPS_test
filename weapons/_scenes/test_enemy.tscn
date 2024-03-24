@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cafve2vpd74pi"]
+[gd_scene load_steps=7 format=3 uid="uid://cafve2vpd74pi"]
 
 [ext_resource type="Script" path="res://weapons/_scenes/test_enemy.gd" id="1_7o864"]
 [ext_resource type="Material" uid="uid://dvltyimty70qv" path="res://weapons/_scenes/test_enemy_color.tres" id="1_ofp1b"]
+[ext_resource type="PackedScene" uid="uid://k3xcsryr2p3n" path="res://player/effects/sparks.tscn" id="2_307ah"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6xhi7"]
 
@@ -16,6 +17,9 @@ script = ExtResource("1_7o864")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["enemy"]]
 transform = Transform3D(0.942165, 0, 0, 0, 0.942165, 0, 0, 0, 0.942165, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_6xhi7")
+
+[node name="Blood" parent="." instance=ExtResource("2_307ah")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25752, 0)
 
 [node name="Node3D" type="Node3D" parent="."]
 

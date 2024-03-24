@@ -21,16 +21,18 @@ extends CharacterBody3D
 @export var HEADBOB_ANIMATION : AnimationPlayer
 @export var JUMP_ANIMATION : AnimationPlayer
 @export var CROUCH_ANIMATION : AnimationPlayer
+@export var SWING_ANIMATION : AnimationPlayer
 @export var COLLISION_MESH : CollisionShape3D
 
 @export_group("Controls")
 # We are using UI controls because they are built into Godot Engine so they can be used right away
-@export var JUMP : String = "ui_accept"
-@export var LEFT : String = "ui_left"
-@export var RIGHT : String = "ui_right"
-@export var FORWARD : String = "ui_up"
-@export var BACKWARD : String = "ui_down"
+@export var JUMP : String = "character_jump"
+@export var LEFT : String = "character_left"
+@export var RIGHT : String = "character_right"
+@export var FORWARD : String = "character_forward"
+@export var BACKWARD : String = "character_backward"
 @export var PAUSE : String = "ui_cancel"
+@export var INTERACT : String = "interact"
 @export var CROUCH : String
 @export var SPRINT : String
 
@@ -55,7 +57,7 @@ extends CharacterBody3D
 @export var reticle_enabled : bool = true
 
 @onready var interact_ray: RayCast3D =  $Head/Camera/interact
-@onready var interact_reticle = $UserInterface/Reticle
+
 # Member variables
 var speed : float = base_speed
 var current_speed : float = 0.0
@@ -77,6 +79,15 @@ func halfway_thru_swing():
 func _on_halfway_swing():
 	print_debug("halfway")
 
+func swing(animation:String):
+	SWING_ANIMATION.play(animation)
+
+
+func _on_swing_animation_animation_finished(anim_name):
+	if anim_name == "swing_fromright":
+		#SWING_ANIMATION.play_backwards("swing_fromright")
+		SWING_ANIMATION.queue("RESET")
+
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
@@ -91,7 +102,7 @@ func _ready():
 	HEADBOB_ANIMATION.play("RESET")
 	JUMP_ANIMATION.play("RESET")
 	CROUCH_ANIMATION.play("RESET")
-	
+	SWING_ANIMATION.play("RESET")
 
 
 func change_reticle(reticle):
@@ -337,8 +348,10 @@ func _unhandled_input(event):
 		HEAD.rotation_degrees.y -= event.relative.x * mouse_sensitivity
 		HEAD.rotation_degrees.x -= event.relative.y * mouse_sensitivity
 	
-	if Input.is_action_just_pressed("interact"):
+	if Input.is_action_just_pressed(INTERACT):
 		var collider = interact_ray.get_collider()
 		if collider and collider.is_in_group("interactable") and collider.is_interactable:
-			collider.interact()
+			collider.interact(self)
 			
+
+
