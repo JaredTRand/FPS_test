@@ -18,3 +18,6 @@ func check_health():
 		
 func die():
 	queue_free()
+
+func knock_back():
+	pass

@@ -1,7 +1,16 @@
-[gd_scene load_steps=9 format=3 uid="uid://15wdhjhhohlm"]
+[gd_scene load_steps=11 format=3 uid="uid://15wdhjhhohlm"]
 
 [ext_resource type="Script" path="res://weapons/weapon_pickup.gd" id="1_1bocd"]
 [ext_resource type="PackedScene" uid="uid://dvhwhqsxktbd2" path="res://weapons/_scenes/sword/sword.tscn" id="2_b65pl"]
+[ext_resource type="Script" path="res://weapons/weapon_stats.gd" id="2_is5iw"]
+
+[sub_resource type="Resource" id="Resource_x6ubi"]
+script = ExtResource("2_is5iw")
+weapon_class = 0
+weapon_type = 0
+weight = 10.0
+damage = 100.0
+knocback = 5.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jar1s"]
 resource_name = "Material.004"
@@ -105,6 +114,7 @@ shadow_mesh = SubResource("ArrayMesh_jr5si")
 mass = 1.3
 script = ExtResource("1_1bocd")
 interact_name = "SWORD"
+weapon_stats = SubResource("Resource_x6ubi")
 weapon = ExtResource("2_b65pl")
 
 [node name="sorceleur" type="MeshInstance3D" parent="."]

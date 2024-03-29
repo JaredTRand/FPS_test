@@ -1,6 +1,7 @@
 [gd_scene load_steps=26 format=3 uid="uid://cc1m2a1obsyn4"]
 
 [ext_resource type="Script" path="res://addons/fpc/character.gd" id="1_0t4e8"]
+[ext_resource type="PackedScene" uid="uid://dvhwhqsxktbd2" path="res://weapons/_scenes/sword/sword.tscn" id="2_fhpdy"]
 [ext_resource type="Script" path="res://addons/fpc/debug.gd" id="3_x1wcc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kp17n"]
@@ -146,8 +147,6 @@ _data = {
 "RESET": SubResource("Animation_j8cx7"),
 "crouch": SubResource("Animation_5ec5e")
 }
-
-[sub_resource type="SphereMesh" id="SphereMesh_mdohx"]
 
 [sub_resource type="Animation" id="Animation_gh776"]
 resource_name = "RESET"
@@ -515,10 +514,6 @@ SWING_ANIMATION = NodePath("Head/SwingAnimation")
 COLLISION_MESH = NodePath("Collision")
 CROUCH = "crouch"
 SPRINT = "sprint"
-original_pos = Vector3(0.3, -0.152, -0.281)
-original_rot = Vector3(3, 65, -15)
-r_melee_ready = Vector3(0.495, -0.152, -0.281)
-r_melee_ready_rotation = Vector3(77.5, 65, -15)
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -546,9 +541,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.21, -0.072, -0.536)
 [node name="Right_hand" type="Node3D" parent="Head"]
 transform = Transform3D(0.395945, 0.155199, 0.905064, -0.258464, 0.964602, -0.052336, -0.881148, -0.213204, 0.422043, 0.3, -0.152, -0.281)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Head/Right_hand"]
-transform = Transform3D(0.1, -9.31323e-10, 4.65661e-10, -1.86265e-09, 0.1, -2.91038e-09, -6.98492e-10, 6.69388e-10, 0.1, 0, 0, 0)
-mesh = SubResource("SphereMesh_mdohx")
+[node name="Sword" parent="Head/Right_hand" instance=ExtResource("2_fhpdy")]
 
 [node name="Camera" type="Camera3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 0.999391, -0.0348995, 0, 0.0348995, 0.999391, 0, 0, 0)
@@ -604,4 +597,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("SphereShape3D_k4wwl")
 target_position = Vector3(0, 0.5, 0)
 
+[connection signal="halfway_swing" from="." to="." method="_on_halfway_swing"]
 [connection signal="animation_finished" from="Head/SwingAnimation" to="." method="_on_swing_animation_animation_finished"]

@@ -2,6 +2,7 @@ extends RigidBody3D
 
 @export var interact_name:String = "WEAPON"
 @export var interact_type:String = "PICK UP"
+@export var weapon_stats:WeaponStats
 @export var weapon: PackedScene
 @export var current_ammo: int
 @export var reserve_ammo: int
@@ -22,6 +23,9 @@ func interact(player):
 		var weapon_node = new_weapon.find_child("weapon_node")
 		var hurtbox = new_weapon.find_child("hurtbox")
 		
+		weapon_stats.player = player
+		
+		new_weapon.weapon_stats = weapon_stats
 		
 		head.add_child(new_weapon)
 		new_weapon.player = player
