@@ -9,11 +9,13 @@ var weapon_stats:WeaponStats
 @onready var hitbox:Area3D = $weapon_node/model/HitBox
 
 var player
-@onready var return_timer:Timer
+@onready var return_timer:Timer = $return
 
 var state: String
 var prev_state: String
 var direction: String
+
+var need_pos_return: bool = false
 
 func _ready():
 	if not player:
@@ -39,7 +41,6 @@ func _on_hit_box_body_entered(body):
 		body.knock_back()
 
 func _process(delta):
-	
 	player.prev_attack_state = state
 	prev_state = state
 	state = player.attack_state
@@ -50,6 +51,17 @@ func _process(delta):
 	else:
 		hitbox.monitoring = false
 		hitbox.monitorable = false
+		
+	if need_pos_return and return_timer.is_stopped() and state == "SWING_DONE":
+		return_timer.start()
+	elif state != "NOT_ATTACKING" and state != "SWING_DONE":
+		return_timer.stop()
 
 func _on_swing_done():
-	print_debug("swingdonesword")
+	need_pos_return = true
+	return_timer.start()
+func _on_return_timeout():
+	print_debug("return")
+	player.return_melee()
+	player.attack_state = "NOT_ATTACKING"
+	need_pos_return = false

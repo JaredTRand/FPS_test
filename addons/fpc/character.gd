@@ -58,12 +58,14 @@ extends CharacterBody3D
 
 @onready var interact_ray: RayCast3D =  $Head/Camera/interact
 
-@export var original_pos:Vector3
-@export var original_rot:Vector3
 @export var r_melee_ready:Vector3
 @export var r_melee_ready_rotation:Vector3
 @onready var r_hand:Node3D = $Head/Right_hand
 @onready var l_hand:Node3D = $Head/Left_hand
+
+
+@onready var original_pos:Vector3 = r_hand.transform.origin
+@onready var original_rot:Quaternion = r_hand.quaternion
 # Member variables
 var speed : float = base_speed
 var current_speed : float = 0.0
@@ -81,12 +83,6 @@ var RETICLE : Control
 var gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity") # Don't set this as a const, see the gravity section in _physics_process
 
 signal swing_done
-
-func halfway_thru_swing():
-	emit_signal("halfway_swing")
-
-func _on_halfway_swing():
-	print_debug("halfway")
 
 func swing(weapon_state:String, direction:String = "RIGHT"):
 	attack_state = weapon_state
@@ -106,7 +102,12 @@ func _on_swing_animation_animation_finished(anim_name):
 	if anim_name == "swing_fromright":
 		#SWING_ANIMATION.play_backwards("swing_fromright")
 		#SWING_ANIMATION.play("RESET", 1)
-		attack_state = "NOT_ATTACKING"
+		attack_state = "SWING_DONE"
+
+func return_melee():
+	print_debug("return player hand")
+	r_hand.transform.origin = original_pos
+	#r_hand.transform.origin = original_rot
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

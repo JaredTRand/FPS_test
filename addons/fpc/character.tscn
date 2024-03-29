@@ -515,8 +515,6 @@ SWING_ANIMATION = NodePath("Head/SwingAnimation")
 COLLISION_MESH = NodePath("Collision")
 CROUCH = "crouch"
 SPRINT = "sprint"
-original_pos = Vector3(0.3, -0.152, -0.281)
-original_rot = Vector3(3, 65, -15)
 r_melee_ready = Vector3(0.495, -0.152, -0.281)
 r_melee_ready_rotation = Vector3(77.5, 65, -15)
 
