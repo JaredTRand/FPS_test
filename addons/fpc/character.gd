@@ -63,6 +63,9 @@ var speed : float = base_speed
 var current_speed : float = 0.0
 # States: normal, crouching, sprinting
 var state : String = "normal"
+var attack_state : String = "NOT_ATTACKING"
+var prev_attack_state: String
+var attack_direction: String
 var low_ceiling : bool = false # This is for when the cieling is too low and the player needs to crouch.
 var was_on_floor : bool = true
 
@@ -79,14 +82,19 @@ func halfway_thru_swing():
 func _on_halfway_swing():
 	print_debug("halfway")
 
-func swing(animation:String):
-	SWING_ANIMATION.play(animation)
+func swing(weapon_state:String):
+	attack_state = weapon_state
+	if weapon_state == "READY":
+		SWING_ANIMATION.play("ready_fromright")
+	elif weapon_state == "SWING":
+		SWING_ANIMATION.play("swing_fromright", .1)
 
 
 func _on_swing_animation_animation_finished(anim_name):
 	if anim_name == "swing_fromright":
 		#SWING_ANIMATION.play_backwards("swing_fromright")
-		SWING_ANIMATION.queue("RESET")
+		SWING_ANIMATION.play("RESET", 1)
+		attack_state = "NOT_ATTACKING"
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -125,7 +133,9 @@ func _physics_process(delta):
 	current_speed = Vector3.ZERO.distance_to(get_real_velocity())
 	$UserInterface/DebugPanel.add_property("Speed", snappedf(current_speed, 0.001), 1)
 	$UserInterface/DebugPanel.add_property("Target speed", speed, 2)
-	$UserInterface/DebugPanel.add_property("Projectiles", get_tree().get_nodes_in_group("projectile").size(), 5)
+	$UserInterface/DebugPanel.add_property("Projectiles", get_tree().get_nodes_in_group("projectile").size(), 3)
+	$UserInterface/DebugPanel.add_property("Attack State", attack_state, 4)
+	
 	var cv : Vector3 = get_real_velocity()
 	var vd : Array[float] = [
 		snappedf(cv.x, 0.001),

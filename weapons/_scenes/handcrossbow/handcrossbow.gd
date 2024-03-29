@@ -8,6 +8,8 @@ var player
 var can_shoot:bool = true
 var loaded:bool = true
 
+@export var weapon_stats:WeaponStats
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	load_bolt()
@@ -21,7 +23,7 @@ func _process(delta):
 func shoot():
 	#timer.start()
 	if loaded and can_shoot:
-		var x = bolt.instantiate()
+		var x = load_bolt()
 		muzzle.add_child(x)
 		#muzzle.remove_child(x)
 		#x.shoot()
@@ -41,4 +43,8 @@ func _on_fly_timer_timeout():
 func load_bolt():
 	#loaded_bolt = bolt.instantiate()
 	#muzzle.add_child(loaded_bolt)
+	var new_bolt = bolt.instantiate()
+	new_bolt.damage = weapon_stats.damage
 	loaded = true
+	
+	return new_bolt
