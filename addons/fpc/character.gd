@@ -64,8 +64,8 @@ extends CharacterBody3D
 @onready var l_hand:Node3D = $Head/Left_hand
 
 
-@onready var original_pos:Vector3 = r_hand.transform.origin
-@onready var original_rot:Quaternion = r_hand.quaternion
+#@onready var original_pos:Vector3 = r_hand.transform.origin
+#@onready var original_rot:Quaternion = r_hand.quaternion
 # Member variables
 var speed : float = base_speed
 var current_speed : float = 0.0
@@ -106,8 +106,7 @@ func _on_swing_animation_animation_finished(anim_name):
 
 func return_melee():
 	print_debug("return player hand")
-	r_hand.transform.origin = original_pos
-	#r_hand.transform.origin = original_rot
+	r_hand.new_lerp_to()
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

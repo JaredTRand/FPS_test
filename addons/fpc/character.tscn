@@ -1,6 +1,7 @@
-[gd_scene load_steps=26 format=3 uid="uid://cc1m2a1obsyn4"]
+[gd_scene load_steps=27 format=3 uid="uid://cc1m2a1obsyn4"]
 
 [ext_resource type="Script" path="res://addons/fpc/character.gd" id="1_0t4e8"]
+[ext_resource type="Script" path="res://player/hand.gd" id="2_w74f7"]
 [ext_resource type="Script" path="res://addons/fpc/debug.gd" id="3_x1wcc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kp17n"]
@@ -543,6 +544,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.21, -0.072, -0.536)
 
 [node name="Right_hand" type="Node3D" parent="Head"]
 transform = Transform3D(0.395945, 0.155199, 0.905064, -0.258464, 0.964602, -0.052336, -0.881148, -0.213204, 0.422043, 0.3, -0.152, -0.281)
+script = ExtResource("2_w74f7")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Head/Right_hand"]
 transform = Transform3D(0.1, -9.31323e-10, 4.65661e-10, -1.86265e-09, 0.1, -2.91038e-09, -6.98492e-10, 6.69388e-10, 0.1, 0, 0, 0)
