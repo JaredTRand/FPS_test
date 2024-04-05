@@ -405,33 +405,6 @@ tracks/1/keys = {
 "values": [Vector3(0.0523599, 1.13446, -0.261799)]
 }
 
-[sub_resource type="Animation" id="Animation_grwy8"]
-resource_name = "ready_fromleft"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Right_hand:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-0.34, -0.157, -0.281)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Right_hand:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-1.39626, 1.71915, -0.261799)]
-}
-
 [sub_resource type="Animation" id="Animation_8fbld"]
 resource_name = "ready_fromright"
 length = 0.4
@@ -486,6 +459,33 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1.62451, 1, 1),
 "update": 0,
 "values": [Vector3(1.35263, 1.13446, -0.261799), Vector3(1.35263, 2.83616, -0.261799), Vector3(1.35263, 4.29351, -0.261799)]
+}
+
+[sub_resource type="Animation" id="Animation_grwy8"]
+resource_name = "ready_fromleft"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Right_hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.34, -0.157, -0.281)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Right_hand:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.39626, 1.71915, -0.261799)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2o7ci"]
@@ -547,7 +547,6 @@ transform = Transform3D(0.395945, 0.155199, 0.905064, -0.258464, 0.964602, -0.05
 rotation_edit_mode = 1
 script = ExtResource("2_w74f7")
 lerp_points = {
-"ready_left": [Vector3(-0.34, -0.157, -0.281), Quaternion(-0.492, 0.521, 0.418, 0.559)],
 "ready_right": [Vector3(0.495, -0.152, -0.281), Quaternion(0.469, 0.484, -0.419, 0.608)],
 "swingfinish_left": [Vector3(-0.45, -0.152, -0.281), Quaternion(-0.423, 0.604, -0.465, -0.49)]
 }
@@ -567,7 +566,7 @@ hit_back_faces = false
 libraries = {
 "": SubResource("AnimationLibrary_o0unb")
 }
-blend_times = [&"RESET", &"RESET", 0.5, &"RESET", &"walk", 0.5, &"walk", &"RESET", 0.5]
+blend_times = [&"walk", &"RESET", 0.5, &"RESET", &"walk", 0.5, &"RESET", &"RESET", 0.5]
 
 [node name="JumpAnimation" type="AnimationPlayer" parent="Head"]
 libraries = {

@@ -61,7 +61,6 @@ func _on_swing_done():
 	need_pos_return = true
 	return_timer.start()
 func _on_return_timeout():
-	print_debug("return")
 	player.return_melee()
 	player.attack_state = "NOT_ATTACKING"
 	need_pos_return = false

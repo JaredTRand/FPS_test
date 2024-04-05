@@ -1,8 +1,17 @@
-[gd_scene load_steps=9 format=3 uid="uid://n0m0p6xa1v01"]
+[gd_scene load_steps=11 format=3 uid="uid://n0m0p6xa1v01"]
 
 [ext_resource type="Script" path="res://weapons/weapon_pickup.gd" id="1_i4eyy"]
 [ext_resource type="PackedScene" uid="uid://b70r61ybnowju" path="res://weapons/_scenes/handcrossbow/handcrossbow.tscn" id="2_5psgt"]
+[ext_resource type="Script" path="res://weapons/weapon_stats.gd" id="2_s6ugn"]
 [ext_resource type="Texture2D" uid="uid://dew82apskplj7" path="res://weapons/Bows and Crossbows Textures/Hand Crossbow Textures/Hand Crossbow_Base_color.png" id="3_xgu8w"]
+
+[sub_resource type="Resource" id="Resource_jgoqw"]
+script = ExtResource("2_s6ugn")
+weapon_class = 1
+weapon_type = 7
+weight = 0.5
+damage = 10.0
+knocback = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7vsss"]
 albedo_texture = ExtResource("3_xgu8w")
@@ -55,6 +64,7 @@ center_of_mass_mode = 1
 center_of_mass = Vector3(0, -0.5, 0.25)
 script = ExtResource("1_i4eyy")
 interact_name = "HAND CROSSBOW"
+weapon_stats = SubResource("Resource_jgoqw")
 weapon = ExtResource("2_5psgt")
 keep_orig_rotation = true
 

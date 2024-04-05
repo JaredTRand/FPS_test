@@ -87,26 +87,31 @@ signal swing_done
 func swing(weapon_state:String, direction:String = "RIGHT"):
 	attack_state = weapon_state
 	if weapon_state == "READY":
-		if direction == "RIGHT":
-			#lerp(r_hand.global_position, r_melee_ready, 10)
-			SWING_ANIMATION.play("ready_fromright")
-		elif direction == "LEFT":
-			SWING_ANIMATION.play("ready_fromleft")
+		if r_hand.current_point == "swingfinish_left":
+			r_hand.lerp_to("ready_left", 10)
+		else:
+			r_hand.lerp_to("ready_right", 10)
+		##if direction == "RIGHT":
+			##lerp(r_hand.global_position, r_melee_ready, 10)
+		#SWING_ANIMATION.play("ready_fromright")
+		#elif direction == "LEFT":
+			#SWING_ANIMATION.play("ready_fromleft")
 
-	elif weapon_state == "SWING":
-		SWING_ANIMATION.play("swing_fromright", .1)
+	if weapon_state == "SWING":
+		SWING_ANIMATION.play("swing_fromright")
 
 
 func _on_swing_animation_animation_finished(anim_name):
-	swing_done.emit()
 	if anim_name == "swing_fromright":
+		r_hand.lerp_to("swingfinish_left")
+		swing_done.emit()
 		#SWING_ANIMATION.play_backwards("swing_fromright")
 		#SWING_ANIMATION.play("RESET", 1)
 		attack_state = "SWING_DONE"
 
 func return_melee():
 	print_debug("return player hand")
-	r_hand.new_lerp_to()
+	r_hand.lerp_to("original")
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
